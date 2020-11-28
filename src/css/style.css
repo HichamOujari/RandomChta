@@ -1,0 +1,192 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-align: center;
+    font-family: initial;
+}
+
+body{
+    background: url("https://wallpaperaccess.com/full/983279.jpg");
+    background-size: fill;
+    background-repeat: no-repeat;
+}
+
+.supertitle{
+    color: white;
+    background: #0c293b;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: 900;
+    font-size: 35px;
+}
+
+.soustitle{
+    color: #2471A3;
+}
+
+
+.formjoin{
+    position: fixed;
+    line-height: 30px;
+    padding: 40px;
+    width: 80%;
+    top:19%;
+    left:9%;
+    background: #DDD;
+    border-radius: 10px;
+    border: 2px solid #38676d;
+}
+
+.joininput{
+    display:block;
+    font-family: sans-serif;
+    height: 35px;
+    margin: 20px auto;
+    width: calc(93% - 15px);
+    margin-top: 0;
+    margin-bottom: 20px;
+    border-radius: 20px;
+}
+
+.joininput:focus{
+    border: 3px solid white;
+}
+
+.joinlogo{
+    width: 150px;
+    margin-bottom: 40px;
+}
+
+.joinsubmit{
+    display:block;
+    margin-top: 40px;
+    font-size: 20px;
+    background: #2471A6;
+    border-radius: 10px;
+    width: 50%;
+    margin-left: 23%;
+}
+
+.joinsubmit:hover{
+    opacity: 0.9;
+    cursor: pointer;
+}
+
+
+.formchat{
+    position: relative;
+    width: 80%;
+    margin-top: 10px;
+    margin-left:9%;
+    background: #DDD;
+    border-radius: 10px;
+    border: 2px solid #38676d;
+    padding: 10px;
+}
+
+.video{
+    padding-top: 10px;
+}
+
+.p{
+    width: 48%;
+    height: 200px;
+}
+
+.p1{
+    float: left;
+    margin-left: 1%;
+}
+.p2{
+    margin-left: 50%;
+}
+
+hr{
+    width: 80%;
+    margin: auto;
+}
+.user{
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: capitalize;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.espVideo{
+    height: 160px;
+    margin-left: 8%;
+    margin-right: 8%;
+    border: 3px solid black;
+    border-radius: 4px;
+}
+
+.mailing{
+    margin-top: 10px;
+}
+.msgcontent{
+    height: 280px;
+    background: white;
+    border: 2px solid black;
+    margin-bottom: 2px;
+    border-radius: 5px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.content{
+    margin: 10px;
+    width: 50%;
+    background: #21618C;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 16px;
+    text-transform: capitalize;
+    color: white;
+}
+
+.this{
+    float: right;
+    text-align: right;
+    padding-right: 20px;
+    break-after: avoid;
+}
+.other{
+    float: left;
+    text-align: left;
+    padding-left: 20px;
+    break-after: avoid;
+}
+
+.heure{
+    padding-top: 16px;
+    font-size: 14px;
+}
+.this+.heure{
+    text-align: right;
+}
+.other+.heure{
+    text-align: left;
+}
+.msg{
+    display: block;
+    text-align: left;
+    padding-left:10px ;
+    font-family: sans-serif;
+    height: 30px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+.send{
+    font-size: 20px;
+    background: #2471A6;
+    border-radius: 10px;
+    width: 30%;
+}
+.skip{
+    width: 30%;
+    margin-left: 5%;
+    font-size: 20px;
+    background: #2471A6;
+    border-radius: 10px;
+}

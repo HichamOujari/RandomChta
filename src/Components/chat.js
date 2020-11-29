@@ -13,7 +13,7 @@ function scroll(old){
 class Chat extends Component {
     state = {
         msg : [],
-        user:"Admin",
+        user:"You",
     }
     send = (e) => {
         var ele=document.getElementById("msg");
@@ -54,7 +54,7 @@ class Chat extends Component {
 
                         </div>
                         <br/>
-                        <hr/><p className="user">{this.state.user}</p>
+                        <hr/><p className="user">Robot</p>
                     </div>
                     
                 </div>

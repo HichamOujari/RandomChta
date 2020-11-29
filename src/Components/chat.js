@@ -38,7 +38,7 @@ class Chat extends Component {
                     </div>
                 )
         })
-        window.title="RandomChat - "+this.state.user
+        document.title="RandomChat - "+this.state.user
         return (
             <div className="formchat">
                 <div className="video">

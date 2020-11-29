@@ -11,7 +11,9 @@ body{
     background-size: fill;
     background-repeat: no-repeat;
 }
-
+a{
+    text-decoration: none;
+}
 .supertitle{
     color: white;
     background: #0c293b;

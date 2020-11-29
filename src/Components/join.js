@@ -7,6 +7,7 @@ class Join extends Component {
             e.preventDefault();
             window.location.href="/chat/"+document.getElementById("username").value;
         }
+        document.title="RandomChat - Welcome"
         return (
             <div>
                 <form onSubmit={auth} className="formjoin">

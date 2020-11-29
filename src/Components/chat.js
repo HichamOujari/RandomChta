@@ -38,7 +38,7 @@ class Chat extends Component {
                     </div>
                 )
         })
-        
+        window.title="RandomChat - "+this.state.user
         return (
             <div className="formchat">
                 <div className="video">
@@ -62,7 +62,7 @@ class Chat extends Component {
                     <div id="msgcontent" className="msgcontent">
                         {list}
                     </div>
-                    <input type="text" id="msg" autoComplete="off" placeholder="Enter your message ..." name="msg" className="msg" autoFocus="true" />
+                    <input type="text" id="msg" autoComplete="off" placeholder="Enter your message ..." name="msg" className="msg" autoFocus={true} />
                     <button className="send" >Send</button>
                     <button className="skip">Skip</button>
                 </form>

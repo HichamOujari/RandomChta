@@ -1,5 +1,6 @@
 import React,{Component,Fragment} from "react"
 import {connect} from "react-redux"
+import loading from "../Assets/loading.gif"
 
 function scroll(old){
     setTimeout(()=>{
@@ -15,6 +16,7 @@ class Chat extends Component {
     state = {
         msg : [],
         user:{},
+        couser:{}
     }
     send = (e) => {
         var ele=document.getElementById("msg");
@@ -30,24 +32,25 @@ class Chat extends Component {
             scroll(-1);
         }
     }
-    stream = () => {
-        var video = document.querySelector("#videoElement")
+    stream = (dst) => {
+        var video = document.querySelector(dst)
         if (navigator.mediaDevices.getUserMedia) {
             navigator.mediaDevices.getUserMedia({ video: true })
                 .then(function (stream) {
                     if(video!=null){
+                        document.querySelector(".loading").remove()
+                        video.removeAttribute('hidden');
                         video.srcObject=stream
-                        video = document.querySelector("#videoElement2")
-                        video.srcObject=stream
-                        console.log(stream)
                     }
                 })
         }
     }
     componentDidMount(){
-        this.stream()
+        this.stream("#videoElement")
+        this.stream("#videoElement2")
         this.setState({
             user:{id:1,name:this.props.match.params.user},
+            couser:{id:2,name:"Randomly"},
         })
     }
     render(){
@@ -65,17 +68,19 @@ class Chat extends Component {
                 <div className="video">
                     <div className="p p1">
                         <div className="espVideo">
-                            <video id="videoElement" autoPlay={true}></video>
+                            <img class="loading" src={loading} alt="loading"/>
+                            <video hidden id="videoElement" autoPlay={true}></video>
                         </div>
                         <br/>
                         <hr/><p className="user">{this.state.user.name}</p>
                     </div>
                     <div className="p p2">
                         <div className="espVideo">
-                            <video id="videoElement2" autoPlay={true}></video>
+                            <img class="loading" src={loading} alt="loading"/>
+                            <video hidden id="videoElement2" autoPlay={true}></video>
                         </div>
                         <br/>
-                        <hr/><p className="user">Robot</p>
+                        <hr/><p className="user">{this.state.couser.name}</p>
                     </div>
                 </div>
                 <form  onSubmitCapture={this.send} className="mailing">

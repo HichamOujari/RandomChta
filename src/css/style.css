@@ -123,6 +123,10 @@ hr{
     overflow: hidden;
 }
 
+.loading{
+    margin: 30px auto;
+}
+
 video{
     height:100%;
     width: 100%;

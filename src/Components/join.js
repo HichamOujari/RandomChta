@@ -5,7 +5,7 @@ class Join extends Component {
     render(){
         const auth = (e) => {
             e.preventDefault();
-            window.location.href="/chat/"+document.getElementById("username").value;
+            window.location.href="https://myrandchat.herokuapp.com/chat/"+document.getElementById("username").value;
         }
         document.title="RandomChat - Welcome"
         return (

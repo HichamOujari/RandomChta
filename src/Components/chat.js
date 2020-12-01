@@ -1,5 +1,4 @@
 import React,{Component,Fragment} from "react"
-import {connect} from "react-redux"
 import loading from "../Assets/loading.gif"
 
 function scroll(old){
@@ -68,7 +67,7 @@ class Chat extends Component {
                 <div className="video">
                     <div className="p p1">
                         <div className="espVideo">
-                            <img class="loading" src={loading} alt="loading"/>
+                            <img className="loading" src={loading} alt="loading"/>
                             <video hidden id="videoElement" autoPlay={true}></video>
                         </div>
                         <br/>
@@ -76,7 +75,7 @@ class Chat extends Component {
                     </div>
                     <div className="p p2">
                         <div className="espVideo">
-                            <img class="loading" src={loading} alt="loading"/>
+                            <img className="loading" src={loading} alt="loading"/>
                             <video hidden id="videoElement2" autoPlay={true}></video>
                         </div>
                         <br/>
@@ -95,16 +94,5 @@ class Chat extends Component {
         )
     }
 }
-function mapStatetoProps(state){
-    return {
-        id : state.count,
-    }
-}
 
-function mapDispatchtoProps(dispatch) {
-    return{
-        increase : ()=> dispatch({type:"AAAA"}),
-        decrease : ()=> dispatch({type:"BBBB"})
-    }
-}
-export default connect(mapStatetoProps,mapDispatchtoProps)(Chat)
+export default Chat

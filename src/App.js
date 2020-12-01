@@ -1,24 +1,23 @@
 import React,{Component} from "react"
-import {BrowserRouter as Router,Route} from "react-router-dom"
+import {BrowserRouter as Router,Route,Switch} from "react-router-dom"
 import Chat from "./Components/chat"
 import Join from "./Components/join"
 import Header from "./Components/header"
-import style from "./css/style.css"
+import "./css/style.css"
 
 class App extends Component {
     render(){
+        console.log(this.props)
         return (
             <Router>
                 <Header />
-                <Route path="/" exact>
-                    <Join />
-                </Route>
-                <Route path="/chat" >
-                    <Chat />
-                </Route>
+                <Switch>
+                    <Route path="/chat/:user" component={Chat}/>
+                    <Route path="/" component={Join}/>
+                </Switch>
             </Router>
         )
     }
 }
 
-export default App
+export default App;

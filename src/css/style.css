@@ -118,8 +118,14 @@ hr{
     height: 160px;
     margin-left: 8%;
     margin-right: 8%;
-    border: 3px solid black;
+    border: 3px solid rgb(37, 36, 36);
     border-radius: 4px;
+    overflow: hidden;
+}
+
+video{
+    height:100%;
+    width: 100%;
 }
 
 .mailing{

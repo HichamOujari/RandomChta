@@ -1,4 +1,6 @@
-import React,{Component} from "react"
+import React,{Component,Fragment} from "react"
+import {connect} from "react-redux"
+import axios from "axios"
 
 function scroll(old){
     setTimeout(()=>{
@@ -13,7 +15,7 @@ function scroll(old){
 class Chat extends Component {
     state = {
         msg : [],
-        user:"You",
+        user:"",
     }
     send = (e) => {
         var ele=document.getElementById("msg");
@@ -29,34 +31,50 @@ class Chat extends Component {
             scroll(-1);
         }
     }
+    stream = (dst) => {
+        var video = document.querySelector(dst);
+        if (navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(function (stream) {
+                    if(video!=null){
+                        video.srcObject=stream;
+                    }
+                })
+        }
+    }
+    componentDidMount(){
+        this.setState({
+            user:this.props.match.params.user,
+        })
+    }
     render(){
         var key=0;
         const list = this.state.msg.map((i)=>{
             const type=(i.me===1)?"this":"other"
-            return(<div key={key++}>
-                        <p><p className={"content "+type}>{i.title}</p><p className="heure">{i.time}</p></p><br/>
-                    </div>
+            return(<Fragment key={key++}>
+                        <p className={"content "+type}>{i.title}</p><p className="heure">{i.time}</p><br/>
+                    </Fragment>
                 )
         })
+        
         document.title="RandomChat - "+this.state.user
         return (
             <div className="formchat">
                 <div className="video">
                     <div className="p p1">
                         <div className="espVideo">
-
+                            <video id="videoElement" onLoad={this.stream("#videoElement")} autoPlay={true}></video>
                         </div>
                         <br/>
                         <hr/><p className="user">{this.state.user}</p>
                     </div>
                     <div className="p p2">
                         <div className="espVideo">
-
+                        <   video autoPlay={true} ></video>
                         </div>
                         <br/>
                         <hr/><p className="user">Robot</p>
                     </div>
-                    
                 </div>
                 <form  onSubmitCapture={this.send} className="mailing">
                     <div id="msgcontent" className="msgcontent">
@@ -70,5 +88,16 @@ class Chat extends Component {
         )
     }
 }
+function mapStatetoProps(state){
+    return {
+        id : state.count,
+    }
+}
 
-export default Chat
+function mapDispatchtoProps(dispatch) {
+    return{
+        increase : ()=> dispatch({type:"AAAA"}),
+        decrease : ()=> dispatch({type:"BBBB"})
+    }
+}
+export default connect(mapStatetoProps,mapDispatchtoProps)(Chat)

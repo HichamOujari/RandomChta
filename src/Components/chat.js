@@ -1,6 +1,5 @@
 import React,{Component,Fragment} from "react"
 import {connect} from "react-redux"
-import axios from "axios"
 
 function scroll(old){
     setTimeout(()=>{
@@ -15,7 +14,7 @@ function scroll(old){
 class Chat extends Component {
     state = {
         msg : [],
-        user:"",
+        user:{},
     }
     send = (e) => {
         var ele=document.getElementById("msg");
@@ -31,20 +30,24 @@ class Chat extends Component {
             scroll(-1);
         }
     }
-    stream = (dst) => {
-        var video = document.querySelector(dst);
+    stream = () => {
+        var video = document.querySelector("#videoElement")
         if (navigator.mediaDevices.getUserMedia) {
             navigator.mediaDevices.getUserMedia({ video: true })
                 .then(function (stream) {
                     if(video!=null){
-                        video.srcObject=stream;
+                        video.srcObject=stream
+                        video = document.querySelector("#videoElement2")
+                        video.srcObject=stream
+                        console.log(stream)
                     }
                 })
         }
     }
     componentDidMount(){
+        this.stream()
         this.setState({
-            user:this.props.match.params.user,
+            user:{id:1,name:this.props.match.params.user},
         })
     }
     render(){
@@ -56,21 +59,20 @@ class Chat extends Component {
                     </Fragment>
                 )
         })
-        
-        document.title="RandomChat - "+this.state.user
+        document.title="RandomChat - "+this.state.user.name
         return (
             <div className="formchat">
                 <div className="video">
                     <div className="p p1">
                         <div className="espVideo">
-                            <video id="videoElement" onLoad={this.stream("#videoElement")} autoPlay={true}></video>
+                            <video id="videoElement" autoPlay={true}></video>
                         </div>
                         <br/>
-                        <hr/><p className="user">{this.state.user}</p>
+                        <hr/><p className="user">{this.state.user.name}</p>
                     </div>
                     <div className="p p2">
                         <div className="espVideo">
-                        <   video autoPlay={true} ></video>
+                            <video id="videoElement2" autoPlay={true}></video>
                         </div>
                         <br/>
                         <hr/><p className="user">Robot</p>

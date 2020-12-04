@@ -11,7 +11,7 @@ class App extends Component {
             <Router>
                 <Header />
                 <Switch>
-                    <Route path="/chat/:user" component={Chat}/>
+                    <Route path="/chat/:user" exact component={Chat}/>
                     <Route path="/" component={Join}/>
                 </Switch>
             </Router>

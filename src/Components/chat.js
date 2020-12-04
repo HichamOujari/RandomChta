@@ -1,5 +1,8 @@
 import React,{Component,Fragment} from "react"
 import loading from "../Assets/loading.gif"
+import io from "socket.io-client"
+
+const socket = io.connect('http://localhost:4000')
 
 function scroll(old){
     setTimeout(()=>{
@@ -10,34 +13,41 @@ function scroll(old){
         }
     },5);
 }
+function perdue() {
+    document.querySelector(".couser").removeAttribute("hidden");
+    document.querySelector("#videoElement2").setAttribute("hidden","");
+}
 
 class Chat extends Component {
     state = {
         msg : [],
         user:{},
-        couser:{}
+        couser:{id:" ",name:" "},
+        online:0,
     }
     send = (e) => {
-        var ele=document.getElementById("msg");
         e.preventDefault()
+        var ele=document.getElementById("msg");
         if(ele.value.length!==0){
             var time = new Date();
             time=time.toTimeString().split(':');
             time=time[0]+":"+time[1]
-            this.setState({
-                msg:[...this.state.msg,{me:1,title:ele.value,time:time}]
-            })
+            socket.emit('new_message',{to:this.state.couser.id,id:this.state.user.id,msg:ele.value,time:time})
             ele.value="";
             scroll(-1);
         }
     }
-    stream = (dst) => {
+    skip(){
+        perdue()
+        socket.emit("skip",{id:this.state.user.id,coid:this.state.couser.id})
+    }
+    stream = (dst,nbr) => {
         var video = document.querySelector(dst)
         if (navigator.mediaDevices.getUserMedia) {
             navigator.mediaDevices.getUserMedia({ video: true })
                 .then(function (stream) {
                     if(video!=null){
-                        document.querySelector(".loading").remove()
+                        document.querySelectorAll(".loading")[nbr].setAttribute("hidden","");
                         video.removeAttribute('hidden');
                         video.srcObject=stream
                     }
@@ -45,25 +55,48 @@ class Chat extends Component {
         }
     }
     componentDidMount(){
-        this.stream("#videoElement")
-        this.stream("#videoElement2")
-        this.setState({
-            user:{id:1,name:this.props.match.params.user},
-            couser:{id:2,name:"Randomly"},
+        socket.on('message',data=>{
+            this.setState({
+                msg:[...this.state.msg,{id:data.id,msg:data.msg,time:data.time}]})
+        })
+        socket.on('count',data=>{
+            this.setState({
+                online: data,
+            })
+        })
+        socket.on('id',data=>{
+            this.stream("#videoElement",0)
+            this.setState({
+                user:{id:data,name:this.props.match.params.user},
+            })    
+        })
+        socket.on('coId',data=>{
+            this.stream("#videoElement2",1)
+            this.setState({
+                couser:{id:data.id,name:data.name},
+            })
+        })
+        socket.on('exited',data=>{
+            perdue()
+            this.setState({
+                couser:{id:" ",name:" "},
+            })
         })
     }
     render(){
         var key=0;
         const list = this.state.msg.map((i)=>{
-            const type=(i.me===1)?"this":"other"
+            const type=(i.id===this.state.user.id)?"this":"other"
+            scroll(-1);
             return(<Fragment key={key++}>
-                        <p className={"content "+type}>{i.title}</p><p className="heure">{i.time}</p><br/>
+                        <p className={"content "+type}>{i.msg}</p><p className="heure">{i.time}</p><br/>
                     </Fragment>
                 )
         })
         document.title="RandomChat - "+this.state.user.name
         return (
             <div className="formchat">
+                <span className="online">{this.state.online}.online</span>
                 <div className="video">
                     <div className="p p1">
                         <div className="espVideo">
@@ -75,7 +108,7 @@ class Chat extends Component {
                     </div>
                     <div className="p p2">
                         <div className="espVideo">
-                            <img className="loading" src={loading} alt="loading"/>
+                            <img className="loading couser" src={loading} alt="loading"/>
                             <video hidden id="videoElement2" autoPlay={true}></video>
                         </div>
                         <br/>
@@ -85,10 +118,11 @@ class Chat extends Component {
                 <form  onSubmitCapture={this.send} className="mailing">
                     <div id="msgcontent" className="msgcontent">
                         {list}
+                        
                     </div>
                     <input type="text" id="msg" autoComplete="off" placeholder="Enter your message ..." name="msg" className="msg" autoFocus={true} />
                     <button className="send" >Send</button>
-                    <button className="skip">Skip</button>
+                    <button className="skip" onClick={this.skip.bind(this)}>Skip</button>
                 </form>
             </div>
         )

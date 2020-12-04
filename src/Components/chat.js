@@ -95,6 +95,7 @@ class Chat extends Component {
         })
         document.title="RandomChat - "+this.state.user.name
         return (
+            <span className="online">{this.state.online}.online</span>
             <div className="formchat">
                 <div className="video">
                     <div className="p p1">

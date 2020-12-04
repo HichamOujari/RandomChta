@@ -2,7 +2,7 @@ import React,{Component,Fragment} from "react"
 import loading from "../Assets/loading.gif"
 import io from "socket.io-client"
 
-const socket = io.connect('https://randomchat-server.herokuapp.com:4000')
+const socket = io.connect('https://randomchat-server.herokuapp.com')
 
 function scroll(old){
     setTimeout(()=>{

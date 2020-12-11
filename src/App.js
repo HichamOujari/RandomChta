@@ -5,6 +5,7 @@ import Join from "./Components/join"
 import Header from "./Components/header"
 import "./css/style.css"
 
+
 class App extends Component {
     render(){
         return (

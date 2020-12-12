@@ -63,7 +63,7 @@ class Chat extends Component {
     stream = (dst,nbr) => {
         var video = document.querySelector(dst);
         if (navigator.mediaDevices.getUserMedia) {
-            navigator.mediaDevices.getUserMedia({ video: true,audio:true })
+            navigator.mediaDevices.getUserMedia({ video: true })
                 .then(function (stream) {
                     if(video!=null){
                         document.querySelectorAll(".loading")[nbr].setAttribute("hidden","");

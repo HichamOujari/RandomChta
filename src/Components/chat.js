@@ -57,13 +57,13 @@ class Chat extends Component {
         socket.emit("skip",{name:this.state.user.name,peerid:this.state.user.peerid});
     }
     next(){
-        socket.emit("skip",this.state.user.name);
+        socket.emit("skip",{name:this.state.user.name,peerid:this.state.user.peerid});
         document.querySelector("#skiped").style.display="none";
     }
     stream = (dst,nbr) => {
         var video = document.querySelector(dst);
         if (navigator.mediaDevices.getUserMedia) {
-            navigator.mediaDevices.getUserMedia({ video: true,audio:true })
+            navigator.mediaDevices.getUserMedia({ video: true })
                 .then(function (stream) {
                     if(video!=null){
                         document.querySelectorAll(".loading")[nbr].setAttribute("hidden","");
@@ -114,7 +114,6 @@ class Chat extends Component {
                     call.answer(stream);
                     call.on('stream', function(remoteStream) {
                         document.querySelector("#videoElement2").srcObject=remoteStream;
-                        document.querySelector("#videoElement2").play();
                     });
                 })
             }, function(err) {

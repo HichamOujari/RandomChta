@@ -224,16 +224,18 @@ video{
 .skiped>p{
     margin-bottom: 10px;
 }
-.skiped>button{
-    width: 90px;
+.btnnew{
     height: 30px;
     background-color:#47CE52;
     border: 2px solid #47CE52;
     border-radius: 30px;
+    width: 50%;
+    margin-left: 24%;
+    cursor: pointer;
     transition: 0.5s;
     transition-property: box-shadow border;
 }
-.skiped>button:hover{
+.btnnew:hover{
     border: 2px solid black;
     box-shadow: 10px 10px 20px black;
     cursor: pointer;

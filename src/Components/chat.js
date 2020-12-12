@@ -18,6 +18,7 @@ function scroll(old){
 function perdue() {
     document.querySelector(".couser").removeAttribute("hidden");
     document.querySelector("#videoElement2").setAttribute("hidden","");
+    document.querySelector("#videoElement2").pause();
     document.querySelector("#msg").disabled="true";
 }
 
@@ -113,18 +114,16 @@ class Chat extends Component {
                     call.answer(stream);
                     call.on('stream', function(remoteStream) {
                         document.querySelector("#videoElement2").srcObject=remoteStream;
+                        document.querySelector("#videoElement2").play();
                     });
                 })
             }, function(err) {
-            console.log('Failed to get local stream' ,err);
-        })
-        socket.on("camera",data=>{
-            document.querySelector("#videoElement2").srcObject=window.URL.createObjectURL(data)
+            console.log('Failed to get local stream ' ,err);
         })
         socket.on("exited",()=>{
             perdue();
             this.setState({
-                couser:{id:" ",name:" "},
+                couser:{id:" ",name:" ",peerid:" "},
             })
             document.querySelector("#skiped").style.display="block";
         })

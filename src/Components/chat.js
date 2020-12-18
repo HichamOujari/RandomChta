@@ -101,26 +101,29 @@ class Chat extends Component {
             this.setState({
                 couser:{id:data.id,name:data.name,peerid:data.peerid}
             })
-            //var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-            navigator.MediaDevices.getUserMedia({video: true, audio: true})
-                .then(stream=>{
-                    peer.call(data.peerid,stream)
-                })
-                .catch(err=>{console.log('Error in first one : '+err)})
-            affiche();
-        })
-        peer.on('call',call=>{
-            //var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-            navigator.MediaDevices.getUserMedia({video: true, audio: true})
-                .then(stream=>{
-                    call.answer(stream);
-                    call.on('stream', function(remoteStream) {
-                        document.querySelector("#videoElement2").srcObject=remoteStream;
-                    });
-                })
+            var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+            getUserMedia({video: true, audio: true}, function(stream) {
+              var call = peer.call(data.peerid,stream);
+              call.on('stream', function(remoteStream) {
+                document.querySelector("#videoElement2").srcObject=remoteStream;
+                affiche()
+              });
             }, function(err) {
-            console.log('Failed to get local stream ' ,err);
+              console.log('Failed to get local stream' ,err);
+            });
         })
+        var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+        peer.on('call', function(call) {
+          getUserMedia({video: true, audio: true}, function(stream) {
+            call.answer(stream);
+            call.on('stream', function(remoteStream) {
+              document.querySelector("#videoElement2").srcObject=remoteStream;
+              affiche()
+            });
+          }, function(err) {
+            console.log('Failed to get local stream' ,err);
+          });
+        });
         socket.on("exited",()=>{
             perdue();
             this.setState({

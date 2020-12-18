@@ -102,7 +102,7 @@ class Chat extends Component {
                 couser:{id:data.id,name:data.name,peerid:data.peerid}
             })
             //var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-            navigator.getUserMedia({video: true, audio: true})
+            navigator.MediaDevices.getUserMedia({video: true, audio: true})
                 .then(stream=>{
                     peer.call(data.peerid,stream)
                 })
@@ -111,7 +111,7 @@ class Chat extends Component {
         })
         peer.on('call',call=>{
             //var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-            navigator.getUserMedia({video: true, audio: true})
+            navigator.MediaDevices.getUserMedia({video: true, audio: true})
                 .then(stream=>{
                     call.answer(stream);
                     call.on('stream', function(remoteStream) {

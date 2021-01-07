@@ -3,8 +3,8 @@ import loading from "../Assets/loading.gif"
 import io from "socket.io-client"
 import Peer from 'peerjs'
 
-const socket = io.connect('https://randomchat-server.herokuapp.com')
-//const socket = io.connect('http://localhost:4000')
+//const socket = io.connect('https://randomchat-server.herokuapp.com')
+const socket = io.connect('http://localhost:4000')
 
 function scroll(old){
     setTimeout(()=>{
@@ -26,6 +26,7 @@ function affiche() {
     document.querySelector("#videoElement2").removeAttribute("hidden");
     document.querySelector(".couser").setAttribute("hidden","");
     document.querySelector("#msg").removeAttribute("disabled");
+    document.querySelector("#skiped").style.display="none";
 }
 
 class Chat extends Component {
